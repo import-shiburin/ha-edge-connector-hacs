@@ -1,0 +1,3 @@
+[submodule "submodules/HA-Edge-Connector"]
+	path = submodules/HA-Edge-Connector
+	url = https://github.com/fison67/HA-Edge-Connector
