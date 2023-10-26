@@ -37,6 +37,8 @@ from homeassistant.helpers.device_registry import (
 
 from homeassistant.helpers import discovery
 
+import traceback
+
 _LOGGER = logging.getLogger(__name__)
 
 NAME                = 'ST Edge Cordinator'
@@ -114,7 +116,7 @@ class EdgeDriver:
             content = json.dumps({"port":self.tcpPort, "data":list})
             self.sock.sendto(content.encode('UTF-8'), addr)
         except Exception as e:
-            logging.error(e)
+            logging.error(traceback.format_exc())
 
     def procesProtocol(self, data, addr):
         try:
