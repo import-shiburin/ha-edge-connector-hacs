@@ -109,8 +109,7 @@ class EdgeDriver:
                             break
                     if not isinstance(targetState, dict):
                         targetState = targetState.as_dict()
-                    logging.warn(f'entity_id: {entity_id}')
-                    logging.warn(f'DEBUG: attributes: {targetState["attributes"]}')
+                    logging.warn(f'entity_id: {entity_id}, entity: {entity}, targetState: {targetState}')
                     list.append({"id":original_entity_id, "attributes": targetState["attributes"]})
 
             content = json.dumps({"port":self.tcpPort, "data":list})
