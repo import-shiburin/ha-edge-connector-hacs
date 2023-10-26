@@ -114,7 +114,7 @@ class EdgeDriver:
             content = json.dumps({"port":self.tcpPort, "data":list})
             self.sock.sendto(content.encode('UTF-8'), addr)
         except Exception as e:
-            logger.exception(e)
+            logging.exception(e)
 
     def procesProtocol(self, data, addr):
         try:
