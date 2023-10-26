@@ -101,17 +101,17 @@ class EdgeDriver:
             for entity in content["entities"]:
                 entity_id = entity["entity_id"]
                 if entity_id.startswith(title):
-                    origianl_entity_id = data + "." + entity_id[(len(title)+1):len(entity_id)]
+                    original_entity_id = data + "." + entity_id[(len(title)+1):len(entity_id)]
                     targetState = {}
                     for state in stateList:
-                        if state.entity_id == origianl_entity_id:
+                        if state.entity_id == original_entity_id:
                             targetState = state
                             break
                     if not isinstance(targetState, dict):
                         targetState = targetState.as_dict()
                     logging.warn(f'entity_id: {original_entity_id}')
                     logging.warn(f'DEBUG: attributes: {targetState["attributes"]}')
-                    list.append({"id":origianl_entity_id, "attributes": targetState["attributes"]})
+                    list.append({"id":original_entity_id, "attributes": targetState["attributes"]})
 
             content = json.dumps({"port":self.tcpPort, "data":list})
             self.sock.sendto(content.encode('UTF-8'), addr)
