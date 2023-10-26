@@ -107,12 +107,13 @@ class EdgeDriver:
                         if state.entity_id == origianl_entity_id:
                             targetState = state
                             break
-                    list.append({"id":origianl_entity_id, "attributes": targetState.as_dict()["attributes"]})
+                    if not isinstance(targetState, dict):
+                        targetState = targetState.as_dict()
+                    list.append({"id":origianl_entity_id, "attributes": targetState["attributes"]})
 
             content = json.dumps({"port":self.tcpPort, "data":list})
             self.sock.sendto(content.encode('UTF-8'), addr)
         except Exception as e:
-            logging.error("error: ")
             logging.error(e)
 
     def procesProtocol(self, data, addr):
