@@ -148,7 +148,7 @@ class EdgeDriver:
         return round(time.time() * 1000)
 
     def eventCallback(my, event):
-        logging.debug(event)
+        logging.warn(f"event: {event}")
         newState = event.data['new_state']
         id  = newState.entity_id
         target = my.entity_registry.async_get(DOMAIN + "." + id.replace(".", "_"))
