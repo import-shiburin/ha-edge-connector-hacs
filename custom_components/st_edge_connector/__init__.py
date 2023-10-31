@@ -148,9 +148,12 @@ class EdgeDriver:
         return round(time.time() * 1000)
 
     def eventCallback(my, event):
-        logging.warn(f"event: {event}")
         newState = event.data['new_state']
-        id  = newState.entity_id
+        try:
+            id  = newState.entity_id
+        except Exception as e:
+            logging.error(f"eventCallback event: {event}")
+            logging.exception(e)
         target = my.entity_registry.async_get(DOMAIN + "." + id.replace(".", "_"))
         if target is not None:
             try:
