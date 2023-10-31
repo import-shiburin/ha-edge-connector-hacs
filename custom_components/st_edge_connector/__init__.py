@@ -153,18 +153,19 @@ class EdgeDriver:
         if newState is None:
             logging.warn(f"{event['entity_id']}: new_state is none")
             return
-        target = my.entity_registry.async_get(DOMAIN + "." + id.replace(".", "_"))
+        entity_id  = newState.entity_id
+        target = my.entity_registry.async_get(DOMAIN + "." + entity_id.replace(".", "_"))
         if target is not None:
             try:
                 deviceMap = my.handler.getDeviceDataMap()
-                if id in deviceMap:
+                if entity_id in deviceMap:
                     addr = "http://" + deviceMap[id] + "/push-state"
-                    uuid = "http://" + my.ha_addr  + ":" + str(my.ha_port) + "/" + id
+                    uuid = "http://" + my.ha_addr  + ":" + str(my.ha_port) + "/" + entity_id
                     data = json.dumps({"uuid":uuid, "time": my.current_milli_time(), "data":newState.state, "attributes": newState.as_dict().get('attributes')}).encode('UTF-8')
                     # logging.info(data)
                     res = requests.post(addr, data=data)
                 else :
-                    logging.warn("Non exist edge address: " + id)
+                    logging.warn("Non exist edge address: " + entity_id)
             except Exception as e:
                 logging.error("EventCallback Error: ")
                 logging.error(e)
