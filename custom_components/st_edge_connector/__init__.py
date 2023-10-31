@@ -152,6 +152,7 @@ class EdgeDriver:
         # bypass callback if newState is None
         if newState is None:
             logging.warn(f"{event['entity_id']}: new_state is none")
+            return
         target = my.entity_registry.async_get(DOMAIN + "." + id.replace(".", "_"))
         if target is not None:
             try:
