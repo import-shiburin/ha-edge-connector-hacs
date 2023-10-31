@@ -149,11 +149,9 @@ class EdgeDriver:
 
     def eventCallback(my, event):
         newState = event.data['new_state']
-        try:
-            id  = newState.entity_id
-        except Exception as e:
-            logging.error(f"eventCallback event: {event}")
-            logging.exception(e)
+        # bypass callback if newState is None
+        if newState is None:
+            logging.warn(f"{event['entity_id']}: new_state is none")
         target = my.entity_registry.async_get(DOMAIN + "." + id.replace(".", "_"))
         if target is not None:
             try:
