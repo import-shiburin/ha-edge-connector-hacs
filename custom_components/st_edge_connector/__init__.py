@@ -151,7 +151,7 @@ class EdgeDriver:
         newState = event.data['new_state']
         # bypass callback if newState is None
         if newState is None:
-            logging.warn(f"{event['entity_id']}: new_state is none")
+            logging.warn(f"{event.entity_id}: new_state is none")
             return
         entity_id  = newState.entity_id
         target = my.entity_registry.async_get(DOMAIN + "." + entity_id.replace(".", "_"))
